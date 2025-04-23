@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIM_DATABASE</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 0 40px #00f2ff;
+    }
+
+    h2 {
+      color: #00f2ff;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      background: #111;
+      color: white;
+    }
+
+    .btn {
+      background: #00f2ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00c2d4;
+    }
+
+    .result-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 0 15px #00f2ff;
+    }
+
+    .result-box h3 {
+      text-align: center;
+      color: #0ff;
+      margin-bottom: 10px;
+    }
+
+    .result-box p {
+      margin: 6px 0;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      background: #00aaff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px;
+      display: block;
+    }
+
+    .error {
+      margin-top: 20px;
+      padding: 12px;
+      text-align: center;
+      border-radius: 10px;
+      background: #400;
+      color: red;
+    }
+
+    .photo-frame {
+  margin-top: 25px;
+  text-align: center;
+}
+.photo-frame img {
+  width: 100%;
+  max-width: 300px;
+  border: 4px solid #00f2ff;
+  border-radius: 20px;
+  box-shadow: 0 0 25px #00f2ff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 3;
+  color: #00f2ff;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 0 0 5px #00f2ff;
+}
+
+  </style>
+</head>
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+  
+  <div class="photo-frame">
+  <img src="https://via.placeholder.com/300x200.png?text=Profile+Photo" alt="Photo Frame">
+</div>
+  
+<div class="container">
+  <h2>SIM DATABASE</h2>
+  <form id="simForm">
+    <input type="text" id="phone" placeholder="Enter phone number Without 0 And +92" required />
+    <button type="submit" class="btn">Search</button>
+  </form>
+  <div id="response"></div>
+</div>
+
+<script>
+  const form = document.getElementById("simForm");
+  const responseBox = document.getElementById("response");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const phone = document.getElementById("phone").value.trim();
+    responseBox.innerHTML = "⏳ Fetching...";
+
+    try {
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://legendxdata.site/Api/simdata.php?phone=' + phone)}`;
+      const res = await fetch(proxyUrl);
+      const data = await res.json();
+
+      if (data && data[0]) {
+        const user = data[0];
+        responseBox.innerHTML = `
+          <div class="result-box">
+            <h3>DATA THAT WE HAVE</h3>
+            <p><strong>👤 Name:</strong> ${user.Name || "Not found"}</p>
+            <p><strong>📞 Mobile:</strong> ${user.Number || "Not found"}</p>
+            <p><strong>🆔 CNIC:</strong> ${user.CNIC || "Not found"}</p>
+            <p><strong>📶 Operator:</strong> ${user.Operator || "Not found"}</p>
+            <p><strong>📍 Address:</strong> ${user.Address || "Not found"}</p>
+            <button class="copy-btn" onclick="copyData()">📋 Copy All Data</button>
+          </div>
+        `;
+      } else {
+        responseBox.innerHTML = `<div class="error">❌ No data found for this number.</div>`;
+      }
+    } catch (err) {
+      console.error(err);
+      responseBox.innerHTML = `<div class="error">❌ Error fetching data. Server might be down.</div>`;
+    }
+  });
+
+  function copyData() {
+    const text = document.querySelector(".result-box").innerText;
+    navigator.clipboard.writeText(text).then(() => alert("✅ Copied!"));
+  }
+
+  // Matrix background effect
+  const canvas = document.getElementById("matrixCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  const chars = "01";
+  const fontSize = 16;
+  const columns = canvas.width / fontSize;
+  const drops = Array(Math.floor(columns)).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#00f2ff";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  setInterval(drawMatrix, 30);
+</script>
+
+<footer class="footer">
+  <p>© Copied by ProBoy315</p>
+</footer>
+
+  
+</body>
+</html>
