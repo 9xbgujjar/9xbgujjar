@@ -114,17 +114,24 @@
       color: red;
     }
 
-    .photo-frame {
+.photo-frame {
   margin-top: 25px;
   text-align: center;
+  z-index: 3;
+  position: relative;
 }
+
 .photo-frame img {
   width: 100%;
   max-width: 300px;
   border: 4px solid #00f2ff;
   border-radius: 20px;
   box-shadow: 0 0 25px #00f2ff;
+  display: block;
+  margin: 0 auto;
+  opacity: 1 !important;
 }
+
 
 .footer {
   position: fixed;
@@ -144,8 +151,8 @@
 
 <canvas id="matrixCanvas"></canvas>
   
-  <div class="photo-frame">
-  <img src="https://i.ibb.co/bgZhCJGh/288494ad316abcb5.jpg?text=Profile+Photo" alt="Photo Frame">
+<div class="photo-frame">
+  <img src="https://i.ibb.co/bgZhCJGh/288494ad316abcb5.jpg" alt="Profile Picture">
 </div>
   
 <div class="container">
