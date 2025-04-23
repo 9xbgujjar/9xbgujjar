@@ -1,5 +1,5 @@
 
-
+<!-- 🔥 SIM DATABASE - Enhanced Version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +12,13 @@
       margin: 0;
       padding: 0;
     }
-
     html, body {
       height: 100%;
       font-family: 'Segoe UI', sans-serif;
       background: black;
       color: #fff;
       overflow: hidden;
-      position: relative;
     }
-
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -29,7 +26,6 @@
       height: 100vh;
       z-index: 0;
     }
-
     .container {
       position: absolute;
       top: 55%;
@@ -43,9 +39,7 @@
       width: 90%;
       max-width: 420px;
       box-shadow: 0 0 40px #00f2ff;
-      animation: slideIn 1s ease-out;
     }
-
     h2 {
       color: #00f2ff;
       text-align: center;
@@ -53,23 +47,10 @@
       font-size: 26px;
       animation: glow-text 2s infinite alternate;
     }
-
     @keyframes glow-text {
       from { text-shadow: 0 0 5px #00f2ff; }
       to { text-shadow: 0 0 20px #00f2ff; }
     }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -100%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-
     input, button {
       width: 100%;
       padding: 12px;
@@ -78,32 +59,20 @@
       border-radius: 10px;
       font-size: 16px;
     }
-
     input {
       background: #111;
       color: white;
-      border: 1px solid #333;
-      transition: border 0.3s ease;
     }
-
-    input:focus {
-      border: 1px solid #00f2ff;
-    }
-
     .btn {
       background: #00f2ff;
       color: black;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 0 10px #00f2ff;
     }
-
     .btn:hover {
       background: #00c2d4;
-      box-shadow: 0 0 20px #00f2ff;
     }
-
     .result-box {
       background: rgba(255, 255, 255, 0.05);
       padding: 20px;
@@ -111,28 +80,15 @@
       border-radius: 12px;
       font-size: 14px;
       box-shadow: 0 0 15px #00f2ff;
-      animation: fadeIn 1.5s ease-out;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
     .result-box h3 {
       text-align: center;
       color: #0ff;
       margin-bottom: 10px;
     }
-
     .result-box p {
       margin: 6px 0;
     }
-
     .copy-btn {
       margin-top: 10px;
       background: #00aaff;
@@ -142,13 +98,7 @@
       border-radius: 10px;
       padding: 10px;
       display: block;
-      transition: 0.3s;
     }
-
-    .copy-btn:hover {
-      background: #0099cc;
-    }
-
     .error {
       margin-top: 20px;
       padding: 12px;
@@ -156,24 +106,13 @@
       border-radius: 10px;
       background: #400;
       color: red;
-      animation: shake 0.5s ease-in-out infinite;
     }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-    }
-
     .photo-frame {
       margin-top: 50px;
       text-align: center;
       position: relative;
       z-index: 3;
-      animation: spin 5s linear infinite;
     }
-
     .photo-frame::before {
       content: '';
       position: absolute;
@@ -187,7 +126,6 @@
       animation: spin 4s linear infinite;
       z-index: -1;
     }
-
     .photo-frame img {
       width: 120px;
       height: 120px;
@@ -196,16 +134,13 @@
       border: 4px solid #00f2ff;
       transition: transform 0.4s ease;
     }
-
     .photo-frame img:hover {
       transform: scale(1.1) rotate(3deg);
     }
-
     @keyframes spin {
       0% { transform: translate(-50%, -50%) rotate(0deg); }
       100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
-
     .typewriter {
       text-align: center;
       margin-top: 10px;
@@ -217,16 +152,13 @@
       animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
       font-size: 16px;
     }
-
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
     }
-
     @keyframes blink {
       50% { border-color: transparent }
     }
-
     .footer {
       position: fixed;
       bottom: 10px;
@@ -238,44 +170,14 @@
       font-size: 14px;
       text-shadow: 0 0 5px #00f2ff;
     }
-
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      text-align: center;
-      border-radius: 5px;
-      padding: 5px 0;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -60px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
-
 <canvas id="matrixCanvas"></canvas>
-
 <div class="photo-frame">
   <img src="https://i.ibb.co/w5Nmgyj/c0318eb7c7d28045.jpg" alt="Profile Picture">
   <div class="typewriter">~ by ProBoy315</div>
 </div>
-
 <div class="container">
   <h2>SIM DATABASE</h2>
   <form id="simForm">
@@ -284,21 +186,17 @@
   </form>
   <div id="response"></div>
 </div>
-
 <script>
   const form = document.getElementById("simForm");
   const responseBox = document.getElementById("response");
-
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     const phone = document.getElementById("phone").value.trim();
     responseBox.innerHTML = "⏳ Fetching...";
-
     try {
       const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://legendxdata.site/Api/simdata.php?phone=' + phone)}`;
       const res = await fetch(proxyUrl);
       const data = await res.json();
-
       if (data && data[0]) {
         const user = data[0];
         responseBox.innerHTML = `
@@ -310,8 +208,7 @@
             <p><strong>📶 Operator:</strong> ${user.Operator || "Not found"}</p>
             <p><strong>📍 Address:</strong> ${user.Address || "Not found"}</p>
             <button class="copy-btn" onclick="copyData()">📋 Copy All Data</button>
-          </div>
-        `;
+          </div>`;
       } else {
         responseBox.innerHTML = `<div class="error">❌ No data found for this number.</div>`;
       }
@@ -320,13 +217,10 @@
       responseBox.innerHTML = `<div class="error">❌ Error fetching data. Server might be down.</div>`;
     }
   });
-
   function copyData() {
     const text = document.querySelector(".result-box").innerText;
     navigator.clipboard.writeText(text).then(() => alert("✅ Copied!"));
   }
-
-  // Matrix background effect
   const canvas = document.getElementById("matrixCanvas");
   const ctx = canvas.getContext("2d");
   canvas.height = window.innerHeight;
@@ -335,13 +229,11 @@
   const fontSize = 16;
   const columns = canvas.width / fontSize;
   const drops = Array(Math.floor(columns)).fill(1);
-
   function drawMatrix() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#00f2ff";
     ctx.font = fontSize + "px monospace";
-
     for (let i = 0; i < drops.length; i++) {
       const text = chars[Math.floor(Math.random() * chars.length)];
       ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -351,13 +243,10 @@
       drops[i]++;
     }
   }
-
   setInterval(drawMatrix, 30);
 </script>
-
 <footer class="footer">
   <p>© 2025 ProBoy315 | Matrix UI</p>
 </footer>
-
 </body>
 </html>
