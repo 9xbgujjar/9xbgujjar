@@ -1,9 +1,10 @@
+<!-- 🔥 SIM DATABASE - Enhanced Version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIM_DATABASE</title>
+  <title><span class="glow-title">SIM_DATABASE</span></title>
   <style>
     * {
       box-sizing: border-box;
@@ -46,7 +47,13 @@
       color: #00f2ff;
       text-align: center;
       margin-bottom: 20px;
-      font-size: 24px;
+      font-size: 26px;
+      animation: glow-text 2s infinite alternate;
+    }
+
+    @keyframes glow-text {
+      from { text-shadow: 0 0 5px #00f2ff; }
+      to { text-shadow: 0 0 20px #00f2ff; }
     }
 
     input, button {
@@ -115,31 +122,63 @@
     }
 
     .photo-frame {
-      margin-top: 40px;
+      margin-top: 50px;
       text-align: center;
-      z-index: 3;
       position: relative;
-      animation: glow-fade 4s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 140px;
+      height: 140px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(#00f2ff, transparent, #00f2ff);
+      animation: spin 4s linear infinite;
+      z-index: -1;
     }
 
     .photo-frame img {
       width: 120px;
       height: 120px;
       object-fit: cover;
-      border: 4px solid #00f2ff;
       border-radius: 50%;
-      box-shadow: 0 0 30px #00f2ff;
-      opacity: 1 !important;
-      transition: transform 0.3s;
+      border: 4px solid #00f2ff;
+      transition: transform 0.4s ease;
     }
 
     .photo-frame img:hover {
-      transform: scale(1.05);
+      transform: scale(1.1) rotate(3deg);
     }
 
-    @keyframes glow-fade {
-      0% { box-shadow: 0 0 20px #00f2ff; }
-      100% { box-shadow: 0 0 40px #00f2ff; }
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .typewriter {
+      text-align: center;
+      margin-top: 10px;
+      font-family: monospace;
+      color: #00f2ff;
+      overflow: hidden;
+      border-right: 2px solid #00f2ff;
+      white-space: nowrap;
+      animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+      font-size: 16px;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     .footer {
@@ -161,6 +200,7 @@
 
 <div class="photo-frame">
   <img src="https://i.ibb.co/bgZhCJGh/288494ad316abcb5.jpg" alt="Profile Picture">
+  <div class="typewriter">~ by ProBoy315</div>
 </div>
 
 <div class="container">
@@ -243,7 +283,7 @@
 </script>
 
 <footer class="footer">
-  <p>© Copied by ProBoy315</p>
+  <p>© 2025 ProBoy315 | Matrix UI</p>
 </footer>
 
 </body>
