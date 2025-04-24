@@ -1,252 +1,176 @@
 
-<!-- 🔥 SIM DATABASE - Enhanced Version -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SIM_DATABASE</title>
+  <title>Login</title>
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
-      padding: 0;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background: black;
-      color: #fff;
       overflow: hidden;
     }
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-    .container {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      backdrop-filter: blur(12px);
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 20px;
+
+    .login-container {
+      background: #000000;
       padding: 30px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 0 40px #00f2ff;
-    }
-    h2 {
-      color: #00f2ff;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
       text-align: center;
-      margin-bottom: 20px;
-      font-size: 26px;
-      animation: glow-text 2s infinite alternate;
+      width: 320px;
+      position: relative;
     }
-    @keyframes glow-text {
-      from { text-shadow: 0 0 5px #00f2ff; }
-      to { text-shadow: 0 0 20px #00f2ff; }
+
+    h2 {
+      color: #FF6347;
     }
-    input, button {
+
+    input {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
+      margin: 12px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      color: #333;
     }
-    input {
-      background: #111;
-      color: white;
-    }
+
     .btn {
-      background: #00f2ff;
-      color: black;
-      font-weight: bold;
+      width: 100%;
+      padding: 14px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
     }
-    .btn:hover {
-      background: #00c2d4;
-    }
-    .result-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      box-shadow: 0 0 15px #00f2ff;
-    }
-    .result-box h3 {
-      text-align: center;
-      color: #0ff;
-      margin-bottom: 10px;
-    }
-    .result-box p {
-      margin: 6px 0;
-    }
-    .copy-btn {
-      margin-top: 10px;
-      background: #00aaff;
+
+    .btn.login {
+      background: #FF6347;
       color: white;
+    }
+
+    .popup {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
       font-weight: bold;
-      cursor: pointer;
-      border-radius: 10px;
-      padding: 10px;
+      display: none;
+    }
+
+    .popup.success {
+      background-color: #e0ffe0;
+      color: #2d8a2d;
       display: block;
     }
-    .error {
-      margin-top: 20px;
-      padding: 12px;
-      text-align: center;
-      border-radius: 10px;
-      background: #400;
-      color: red;
+
+    .popup.error {
+      background-color: #ffe0e0;
+      color: #d12d2d;
+      display: block;
     }
-    .photo-frame {
-      margin-top: 50px;
-      text-align: center;
-      position: relative;
-      z-index: 3;
-    }
-    .photo-frame::before {
+    
+    .button:before, .button:after {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 140px;
-      height: 140px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: conic-gradient(#00f2ff, transparent, #00f2ff);
-      animation: spin 4s linear infinite;
+      left: -2px;
+      top: -2px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #48ff00, #15ff00, #000000,#000000, #ff0000);
+      background-size: 400%;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
       z-index: -1;
+      animation: steam 10s linear infinite;
     }
-    .photo-frame img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #00f2ff;
-      transition: transform 0.4s ease;
+
+    @keyframes steam {
+      0% {
+        background-position: 0 0;
+      }
+
+      50% {
+        background-position: 400% 0;
+      }
+
+      100% {
+        background-position: 0 0;
+      }
     }
-    .photo-frame img:hover {
-      transform: scale(1.1) rotate(3deg);
+
+    .button:after {
+      filter: blur(50px);
     }
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
+
+    .button span {
+      z-index: 1;
     }
-    .typewriter {
-      text-align: center;
-      margin-top: 10px;
-      font-family: monospace;
-      color: #00f2ff;
-      overflow: hidden;
-      border-right: 2px solid #00f2ff;
-      white-space: nowrap;
-      animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
-      font-size: 16px;
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-    .footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      z-index: 3;
-      color: #00f2ff;
-      font-weight: bold;
-      font-size: 14px;
-      text-shadow: 0 0 5px #00f2ff;
-    }
+    
+    footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #222; /* Darker gray footer background */
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    
+  }
+  
   </style>
 </head>
 <body>
-<canvas id="matrixCanvas"></canvas>
-<div class="photo-frame">
-  <img src="https://i.ibb.co/w5Nmgyj/c0318eb7c7d28045.jpg" alt="Profile Picture">
-  <div class="typewriter">~ by ProBoy315</div>
-</div>
-<div class="container">
-  <h2>SIM DATABASE</h2>
-  <form id="simForm">
-    <input type="text" id="phone" placeholder="Enter phone number Without 0 And +92" required />
-    <button type="submit" class="btn">Search</button>
-  </form>
-  <div id="response"></div>
-</div>
-<script>
-  const form = document.getElementById("simForm");
-  const responseBox = document.getElementById("response");
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const phone = document.getElementById("phone").value.trim();
-    responseBox.innerHTML = "⏳ Fetching...";
-    try {
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://legendxdata.site/Api/simdata.php?phone=' + phone)}`;
-      const res = await fetch(proxyUrl);
-      const data = await res.json();
-      if (data && data[0]) {
-        const user = data[0];
-        responseBox.innerHTML = `
-          <div class="result-box">
-            <h3>DATA THAT WE HAVE</h3>
-            <p><strong>👤 Name:</strong> ${user.Name || "Not found"}</p>
-            <p><strong>📞 Mobile:</strong> ${user.Number || "Not found"}</p>
-            <p><strong>🆔 CNIC:</strong> ${user.CNIC || "Not found"}</p>
-            <p><strong>📶 Operator:</strong> ${user.Operator || "Not found"}</p>
-            <p><strong>📍 Address:</strong> ${user.Address || "Not found"}</p>
-            <button class="copy-btn" onclick="copyData()">📋 Copy All Data</button>
-          </div>`;
+    <div class="login-container">
+     <h2>🔐 Login</h2>
+     <form id="loginForm">
+        <input type="text" id="username" placeholder="Username" required />
+       <input type="password" id="password" placeholder="Password" required />
+       <div class="button"><button type="submit" class="btn login">Login</button></div>
+      </form>
+      <div id="popup" class="popup"></div>
+   </div>
+  
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const popup = document.getElementById('popup');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === '9xb' && password === '1234') {
+        popup.textContent = '✅ Login successful!';
+        popup.className = 'popup success';
+        setTimeout(() => {
+          window.location.href = 'home.html'; // Redirect after success
+        }, 1500);
       } else {
-        responseBox.innerHTML = `<div class="error">❌ No data found for this number.</div>`;
+        popup.textContent = '❌ Wrong ID or Password!';
+        popup.className = 'popup error';
       }
-    } catch (err) {
-      console.error(err);
-      responseBox.innerHTML = `<div class="error">❌ Error fetching data. Server might be down.</div>`;
-    }
-  });
-  function copyData() {
-    const text = document.querySelector(".result-box").innerText;
-    navigator.clipboard.writeText(text).then(() => alert("✅ Copied!"));
-  }
-  const canvas = document.getElementById("matrixCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-  const chars = "01";
-  const fontSize = 16;
-  const columns = canvas.width / fontSize;
-  const drops = Array(Math.floor(columns)).fill(1);
-  function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#00f2ff";
-    ctx.font = fontSize + "px monospace";
-    for (let i = 0; i < drops.length; i++) {
-      const text = chars[Math.floor(Math.random() * chars.length)];
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-  setInterval(drawMatrix, 30);
-</script>
-<footer class="footer">
-  <p>© 2025 ProBoy315 | Matrix UI</p>
-</footer>
+    });
+  </script>
+  
+  <footer>
+     мα∂є ву <b>ProBoy</b><span id="currentYear"></span>
+    </footer>
+    
 </body>
 </html>
